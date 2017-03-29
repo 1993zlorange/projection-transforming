@@ -1,0 +1,27 @@
+1.所有参数除宽与高设定int,其余设定为float类型
+2.参数位置width 在 height前，且标定输入图像的宽与高设定为w_src，h_src,输出图像的宽与高设定为w_des,h_des
+3.头文件分为5类
+img2wrd.h——》图像到世界坐标系类
+wrd2img.h——》世界坐标系到图像
+imgout2imgin_cor.h——》输出图像到输入图像坐标映射类，其中世界坐标系旋转定义在此类的实现函数中
+matrix.h——》基本矩阵运算类
+imgin2imgout_img.h——》应用坐标变换的demo类
+其中前四类不依赖任何其他拓展包，最后一类要包含opencv的 <opencv2/core/core.hpp>与 <opencv/highgui.h>
+4.申明数组
+sample1:	float cor_fish[3];
+
+sample2:	float gama_r[3][3]=
+		{
+			{ cos(gama), -sin(gama), 0 },
+			{ sin(gama), cos(gama), 0 },
+			{ 0, 0, 1 }
+		};
+坐标一律采用一维数组，且世界坐标系数组空间为3，图像坐标系数组空间为2
+5.opencv demo类（对图像操作）
+数据采用unsignedchar类型
+sample1:	Mat colorImage = Mat(cvSize(width, height), CV_8UC3); 
+
+sample2:	DestData.at<Vec3b>(j, i) = a
+6.demo入口：test_img.cpp
+矩阵操作测试：TEST.cpp
+7.各个函数的命名需与输出输入图像类型对应
